@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.news_item.view.*
 import vip.frendy.news.R
-import vip.frendy.news.model.News
+import vip.frendy.news.model.entity.News
 
 class NewsListAdapter(val list: ArrayList<News>, val itemClickListener: (News) -> Unit): RecyclerView.Adapter<NewsListAdapter.ViewHolder>() {
 
