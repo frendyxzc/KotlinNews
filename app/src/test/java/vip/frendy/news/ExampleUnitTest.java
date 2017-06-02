@@ -1,4 +1,4 @@
-package me.frendy.demo;
+package vip.frendy.news;
 
 import org.junit.Test;
 

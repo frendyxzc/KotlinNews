@@ -1,11 +1,11 @@
-package me.frendy.demo
+package vip.frendy.news
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import me.frendy.demo.adapter.NewsListAdapter
-import me.frendy.demo.model.News
+import vip.frendy.news.adapter.NewsListAdapter
+import vip.frendy.news.model.News
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread

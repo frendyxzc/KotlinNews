@@ -1,4 +1,4 @@
-package me.frendy.demo;
+package vip.frendy.news;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -1,4 +1,4 @@
-package me.frendy.demo.model
+package vip.frendy.news.model
 
 /**
  * Created by iiMedia on 2017/6/2.
