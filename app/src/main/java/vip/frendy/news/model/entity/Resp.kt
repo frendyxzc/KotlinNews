@@ -16,3 +16,19 @@ data class RespInit (
 data class UserID (
         val user_id: String
 )
+
+
+data class RespGetChannel (
+        val code: Int,
+        val msg: String,
+        val data: ChannelList
+)
+
+data class ChannelList (
+        val channel_list: ArrayList<Channel>
+)
+
+data class Channel (
+        val id: String,
+        val name: String
+)

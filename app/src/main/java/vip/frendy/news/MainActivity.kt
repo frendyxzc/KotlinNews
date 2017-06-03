@@ -9,6 +9,7 @@ import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import vip.frendy.news.adapter.NewsListAdapter
 import vip.frendy.news.model.entity.News
+import vip.frendy.news.model.entity.UserID
 import vip.frendy.news.model.net.Request
 
 class MainActivity : AppCompatActivity() {
@@ -23,12 +24,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadNews()
+        initUser()
     }
 
-    private fun loadNews() = doAsync {
+    private fun initUser() = doAsync {
         val userID = Request(mContext).init()
-        val list = mockData()
+        uiThread {
+            getChannel(userID)
+        }
+    }
+
+    private fun getChannel(userID: UserID) = doAsync {
+        val channelList = Request(mContext).getChannelList(userID.user_id)
+        uiThread {
+            loadNews(userID.user_id, channelList[0].id)
+        }
+    }
+
+    private fun loadNews(uid: String, cid: String) = doAsync {
+        val list = Request(mContext).getNewsList(uid, cid)
         uiThread {
             newsList.adapter = NewsListAdapter(list) {
                 toast(it.title)
