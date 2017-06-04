@@ -11,5 +11,6 @@ data class RespGetNews (
 
 data class News(
         var title: String,
-        var summary: String
+        var summary: String,
+        var image: String
 )

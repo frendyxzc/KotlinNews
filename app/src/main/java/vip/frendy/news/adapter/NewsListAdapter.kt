@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.news_item.view.*
 import vip.frendy.news.R
 import vip.frendy.news.model.entity.News
@@ -26,6 +27,7 @@ class NewsListAdapter(val list: ArrayList<News>, val itemClickListener: (News) -
             with(news) {
                 itemView.title.text = news.title
                 itemView.desc.text = news.summary
+                Glide.with(itemView.context).load(news.image).into(itemView.image)
                 itemView.setOnClickListener { itemClickListener(this) }
             }
         }

@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun mockData(): ArrayList<News> {
         val list = ArrayList<News>()
         for(i in 0..20) {
-            list.add(News("Test Title $i", "Test Desc $i"))
+            list.add(News("Test Title $i", "Test Desc $i", ""))
         }
         return list
     }
