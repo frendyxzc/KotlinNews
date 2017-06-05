@@ -14,7 +14,6 @@ import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import vip.frendy.news.R
 import vip.frendy.news.adapter.NewsListAdapter
-import vip.frendy.news.model.entity.UserID
 import vip.frendy.news.model.net.Request
 
 
@@ -25,17 +24,17 @@ class FragmentNewsList : Fragment(), View.OnClickListener {
     private var rootView: View? = null
 
     companion object {
-        val instance: FragmentNewsList
-            get() {
-                val fragment = FragmentNewsList()
-                return fragment
-            }
+        fun getInstance(bundle: Bundle): FragmentNewsList {
+            val fragment = FragmentNewsList()
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (rootView == null) {
             rootView = inflater?.inflate(R.layout.fragment_news_list, container, false)
-            initData()
+            initData(arguments)
             initView()
         }
         // 缓存的rootView需要判断是否已经被加过parent， 如果有parent需要从parent删除，要不然会发生这个rootview已经有parent的错误
@@ -43,8 +42,8 @@ class FragmentNewsList : Fragment(), View.OnClickListener {
         return rootView
     }
 
-    private fun initData() {
-        initUser()
+    private fun initData(args: Bundle) {
+        loadNews(args.getString("uid"), args.getString("cid"))
     }
 
     private fun initView() {
@@ -67,21 +66,6 @@ class FragmentNewsList : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
 
-    }
-
-
-    private fun initUser() = doAsync {
-        val userID = Request(activity).init()
-        uiThread {
-            getChannel(userID)
-        }
-    }
-
-    private fun getChannel(userID: UserID) = doAsync {
-        val channelList = Request(activity).getChannelList(userID.user_id)
-        uiThread {
-            loadNews(userID.user_id, channelList[0].id)
-        }
     }
 
     private fun loadNews(uid: String, cid: String) = doAsync {
