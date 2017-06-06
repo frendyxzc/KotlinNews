@@ -3,6 +3,7 @@ package vip.frendy.news.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -14,14 +15,18 @@ import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import vip.frendy.news.R
 import vip.frendy.news.adapter.NewsListAdapter
+import vip.frendy.news.model.entity.News
 import vip.frendy.news.model.net.Request
 
 
 /**
  * 直播列表页面
  */
-class FragmentNewsList : Fragment(), View.OnClickListener {
+class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private var rootView: View? = null
+    private var uid: String = "0"
+    private var cid: String = "0"
+    private var mNewsList: ArrayList<News> = ArrayList()
 
     companion object {
         fun getInstance(bundle: Bundle): FragmentNewsList {
@@ -43,12 +48,31 @@ class FragmentNewsList : Fragment(), View.OnClickListener {
     }
 
     private fun initData(args: Bundle) {
-        loadNews(args.getString("uid"), args.getString("cid"))
+        uid = args.getString("uid")
+        cid = args.getString("cid")
+        loadNews(uid, cid)
     }
 
     private fun initView() {
+        val swipeRefreshLayout = rootView?.findViewById(R.id.swipeRefreshLayout) as SwipeRefreshLayout
+        swipeRefreshLayout.setOnRefreshListener(this)
+
         val newsList = rootView?.findViewById(R.id.newsList) as RecyclerView
-        newsList.layoutManager = LinearLayoutManager(activity)
+        val mLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
+        newsList.layoutManager = mLayoutManager
+        newsList.setOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val visibleItemCount = mLayoutManager.getChildCount()
+                val totalItemCount = mLayoutManager.getItemCount()
+                val pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition()
+
+                if (visibleItemCount + pastVisiblesItems >= totalItemCount - 3) {
+                    loadMore(uid, cid)
+                }
+            }
+        })
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
@@ -68,12 +92,36 @@ class FragmentNewsList : Fragment(), View.OnClickListener {
 
     }
 
+    override fun onRefresh() {
+        refresh(uid, cid)
+    }
+
     private fun loadNews(uid: String, cid: String) = doAsync {
         val list = Request(activity).getNewsList(uid, cid)
+        mNewsList.clear()
+        mNewsList.addAll(list)
+
         uiThread {
-            newsList.adapter = NewsListAdapter(list) {
+            newsList.adapter = NewsListAdapter(mNewsList) {
                 activity.toast(it.title)
             }
+        }
+    }
+
+    private fun loadMore(uid: String, cid: String) = doAsync {
+        val list = Request(activity).getNewsList(uid, cid)
+        mNewsList.addAll(list)
+        uiThread {
+            newsList.adapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun refresh(uid: String, cid: String) = doAsync {
+        val list = Request(activity).getNewsList(uid, cid)
+        mNewsList.addAll(0, list)
+        uiThread {
+            newsList.adapter.notifyDataSetChanged()
+            swipeRefreshLayout?.isRefreshing = false
         }
     }
 }
