@@ -9,7 +9,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.qq.e.ads.nativ.NativeADDataRef
 import kotlinx.android.synthetic.main.fragment_news_list.*
+import me.frendy.advertisement.AdHelper
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
@@ -27,6 +29,7 @@ class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.On
     private var uid: String = "0"
     private var cid: String = "0"
     private var mNewsList: ArrayList<News> = ArrayList()
+    private var mAdList: ArrayList<NativeADDataRef> = ArrayList()
 
     companion object {
         fun getInstance(bundle: Bundle): FragmentNewsList {
@@ -99,8 +102,7 @@ class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.On
     private fun loadNews(uid: String, cid: String) = doAsync {
         val list = Request(activity).getNewsList(uid, cid)
         mNewsList.clear()
-        mNewsList.addAll(list)
-
+        mNewsList.addAll(insertAd(list))
         uiThread {
             newsList.adapter = NewsListAdapter(mNewsList) {
                 activity.toast(it.title)
@@ -110,7 +112,7 @@ class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.On
 
     private fun loadMore(uid: String, cid: String) = doAsync {
         val list = Request(activity).getNewsList(uid, cid)
-        mNewsList.addAll(list)
+        mNewsList.addAll(insertAd(list))
         uiThread {
             newsList.adapter.notifyDataSetChanged()
         }
@@ -118,10 +120,16 @@ class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.On
 
     private fun refresh(uid: String, cid: String) = doAsync {
         val list = Request(activity).getNewsList(uid, cid)
-        mNewsList.addAll(0, list)
+        mNewsList.addAll(0, insertAd(list))
         uiThread {
             newsList.adapter.notifyDataSetChanged()
             swipeRefreshLayout?.isRefreshing = false
         }
+    }
+
+    private fun insertAd(list: ArrayList<News>) : ArrayList<News> {
+        val ad: NativeADDataRef ?= AdHelper.getInstance(context).getOneAd()
+        if(ad != null) list.add(News(ad.title, ad.desc, ad.imgUrl, "7"))
+        return  list
     }
 }

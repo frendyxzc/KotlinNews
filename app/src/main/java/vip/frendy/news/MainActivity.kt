@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import me.frendy.advertisement.AdHelper
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import vip.frendy.news.fragment.FragmentNewsList
@@ -21,7 +22,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AdHelper.getInstance(mContext).requestPermissions(this)
         initUser()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        AdHelper.getInstance(mContext).onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun initUser() = doAsync {
