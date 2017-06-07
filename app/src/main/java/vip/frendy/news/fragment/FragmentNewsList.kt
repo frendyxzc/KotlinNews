@@ -22,14 +22,13 @@ import vip.frendy.news.model.net.Request
 
 
 /**
- * 直播列表页面
+ * 新闻列表页
  */
 class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private var rootView: View? = null
     private var uid: String = "0"
     private var cid: String = "0"
     private var mNewsList: ArrayList<News> = ArrayList()
-    private var mAdList: ArrayList<NativeADDataRef> = ArrayList()
 
     companion object {
         fun getInstance(bundle: Bundle): FragmentNewsList {

@@ -27,7 +27,7 @@ class NewsListAdapter(val list: ArrayList<News>, val itemClickListener: (News) -
             with(news) {
                 itemView.title.text = news.title
                 itemView.desc.text = news.summary
-                Glide.with(itemView.context).load(news.image).into(itemView.image)
+                Glide.with(itemView.context).load(news.image).fitCenter().into(itemView.image)
                 itemView.setOnClickListener { itemClickListener(this) }
             }
         }
