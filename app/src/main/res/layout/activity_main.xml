@@ -7,21 +7,33 @@
     android:background="@android:color/white"
     tools:context="vip.frendy.news.MainActivity">
 
-    <com.flyco.tablayout.SlidingTabLayout
-        android:id="@+id/tabs"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        tl:tl_indicator_color="@color/colorPrimary"
-        tl:tl_tab_padding="16dp"
-        tl:tl_tab_space_equal="true"
-        tl:tl_textSelectColor="@color/colorPrimaryDark"
-        tl:tl_textUnselectColor="@color/colorPrimary"
-        tl:tl_textAllCaps="true"
-        tl:tl_textsize="16sp"/>
-
-    <android.support.v4.view.ViewPager
+    <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="36dp"/>
+        android:layout_marginBottom="44dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="44dp"
+        android:background="@color/line"/>
+
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_gravity="bottom"
+        android:background="@android:color/white"
+        tl:tl_iconHeight="28dp"
+        tl:tl_iconWidth="28dp"
+        tl:tl_indicator_color="#2C97DE"
+        tl:tl_indicator_height="0dp"
+        tl:tl_textSelectColor="@color/colorPrimaryDark"
+        tl:tl_textUnselectColor="@color/colorPrimary"
+        tl:tl_textsize="0sp"
+        tl:tl_underline_color="#DDDDDD"
+        tl:tl_underline_height="1dp"/>
+
 </FrameLayout>
