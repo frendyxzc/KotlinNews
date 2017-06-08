@@ -18,7 +18,10 @@ data class News(
         var image_type: String,
         var news_id: String = "1000",
         var sn: String = "2D879AE7DAAB0E06210EEE2FE7D04B1CCDA4A914209DBF7203F03A7C48FA1773A6E1C60A17CD9A653CF438F9D75CCB82",
-        var url: String = Constants.DEFAULT_URL
+        var url: String = Constants.DEFAULT_URL,
+        var skip_way: Int = 0,
+        // video
+        var target_url: String = ""
 )
 
 fun News.getUrl(): String {

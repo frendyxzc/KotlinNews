@@ -1,6 +1,7 @@
 package vip.frendy.news.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
@@ -110,8 +111,18 @@ class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.On
             newsList.adapter = NewsListAdapter(mNewsList) {
                 if(TextUtils.equals(it.image_type, "7")) {
                     activity.toast(it.title)
-                } else activity.startActivity<DetailActivity>(
-                        DetailActivity.URL to it.getUrl())
+                } else {
+                    when(it.skip_way) {
+                        0 -> activity.startActivity<DetailActivity>(
+                                DetailActivity.URL to it.getUrl())
+                        1 -> {
+                            val intent = Intent("me.frendy.video.DetailActivity")
+                            intent.putExtra(me.frendy.video.DetailActivity.PATH, it.target_url)
+                            intent.putExtra(me.frendy.video.DetailActivity.TITLE, it.title)
+                            activity.startActivity(intent)
+                        }
+                    }
+                }
             }
         }
     }
