@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,14 @@ import com.qq.e.ads.nativ.NativeADDataRef
 import kotlinx.android.synthetic.main.fragment_news_list.*
 import me.frendy.advertisement.AdHelper
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.uiThread
 import vip.frendy.news.R
+import vip.frendy.news.activity.DetailActivity
 import vip.frendy.news.adapter.NewsListAdapter
 import vip.frendy.news.model.entity.News
+import vip.frendy.news.model.entity.getUrl
 import vip.frendy.news.model.net.Request
 
 
@@ -104,7 +108,10 @@ class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.On
         mNewsList.addAll(insertAd(list))
         uiThread {
             newsList.adapter = NewsListAdapter(mNewsList) {
-                activity.toast(it.title)
+                if(TextUtils.equals(it.image_type, "7")) {
+                    activity.toast(it.title)
+                } else activity.startActivity<DetailActivity>(
+                        DetailActivity.URL to it.getUrl())
             }
         }
     }
