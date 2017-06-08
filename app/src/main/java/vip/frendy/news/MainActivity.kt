@@ -3,6 +3,7 @@ package vip.frendy.news
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import com.flyco.tablayout.entity.TabEntity
 import com.flyco.tablayout.listener.CustomTabEntity
@@ -12,7 +13,7 @@ import vip.frendy.news.fragment.FragmentAbout
 import vip.frendy.news.fragment.FragmentNewsContent
 import vip.frendy.news.model.data.DelegatesExt
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
     private val mContext: Context = this
     private val mFragments: ArrayList<Fragment> = ArrayList()
 

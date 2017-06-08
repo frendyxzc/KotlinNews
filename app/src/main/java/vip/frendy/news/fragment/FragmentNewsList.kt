@@ -24,6 +24,7 @@ import vip.frendy.news.adapter.NewsListAdapter
 import vip.frendy.news.model.entity.News
 import vip.frendy.news.model.entity.getUrl
 import vip.frendy.news.model.net.Request
+import vip.frendy.news.router.Router
 
 
 /**
@@ -113,14 +114,10 @@ class FragmentNewsList : Fragment(), View.OnClickListener, SwipeRefreshLayout.On
                     activity.toast(it.title)
                 } else {
                     when(it.skip_way) {
-                        0 -> activity.startActivity<DetailActivity>(
+                        1 -> Router.intentToVideoDetail(
+                                activity, it.target_url, it.title)
+                        else -> activity.startActivity<DetailActivity>(
                                 DetailActivity.URL to it.getUrl())
-                        1 -> {
-                            val intent = Intent("me.frendy.video.DetailActivity")
-                            intent.putExtra(me.frendy.video.DetailActivity.PATH, it.target_url)
-                            intent.putExtra(me.frendy.video.DetailActivity.TITLE, it.title)
-                            activity.startActivity(intent)
-                        }
                     }
                 }
             }

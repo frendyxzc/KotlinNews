@@ -2,12 +2,12 @@ package me.frendy.video
 
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.FragmentActivity
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.activity_detail_video.*
 import me.frendy.xvideoview.XVideoView
 
-class DetailActivity : AppCompatActivity(), XVideoView.VideoViewCallback {
+class DetailActivity : FragmentActivity(), XVideoView.VideoViewCallback {
     private var videoPath: String? = null
     private var videoTitle: String = ""
 

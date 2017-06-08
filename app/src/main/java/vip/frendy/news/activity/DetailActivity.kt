@@ -1,11 +1,12 @@
 package vip.frendy.news.activity
 
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_detail.*
 import vip.frendy.news.R
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : FragmentActivity() {
 
     companion object {
         val URL: String = "url"

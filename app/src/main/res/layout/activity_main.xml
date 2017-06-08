@@ -28,12 +28,12 @@
         android:background="@android:color/white"
         tl:tl_iconHeight="28dp"
         tl:tl_iconWidth="28dp"
-        tl:tl_indicator_color="#2C97DE"
+        tl:tl_indicator_color="@color/colorPrimaryDark"
         tl:tl_indicator_height="0dp"
         tl:tl_textSelectColor="@color/colorPrimaryDark"
         tl:tl_textUnselectColor="@color/colorPrimary"
         tl:tl_textsize="0sp"
-        tl:tl_underline_color="#DDDDDD"
+        tl:tl_underline_color="@color/colorPrimaryDark"
         tl:tl_underline_height="1dp"/>
 
 </FrameLayout>
