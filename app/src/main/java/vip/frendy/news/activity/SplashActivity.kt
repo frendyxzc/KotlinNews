@@ -9,8 +9,8 @@ import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 import vip.frendy.news.MainActivity
 import vip.frendy.news.R
-import vip.frendy.news.model.data.DelegatesExt
-import vip.frendy.news.model.net.Request
+import vip.frendy.model.data.DelegatesExt
+import vip.frendy.model.net.Request
 
 class SplashActivity : FragmentActivity() {
     var uid: String by DelegatesExt.preference(this, "UID", "0")

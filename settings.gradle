@@ -1,1 +1,3 @@
-include ':app', ':advertisement', ':video'
+include ':news', ':video'
+include ':model', ':advertisement'
+include ':app'

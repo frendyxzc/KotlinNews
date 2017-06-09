@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.frendy.video">
+    package="vip.frendy.video">
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,7 @@
         android:supportsRtl="true">
         <activity android:name=".DetailActivity">
             <intent-filter>
-                <action android:name="me.frendy.video.DetailActivity"/>
+                <action android:name="vip.frendy.video.DetailActivity"/>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

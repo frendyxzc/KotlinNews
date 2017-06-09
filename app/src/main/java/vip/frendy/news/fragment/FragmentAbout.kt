@@ -6,11 +6,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.jetbrains.anko.startActivity
+import vip.frendy.model.data.Constants
+import vip.frendy.model.router.Router
 import org.jetbrains.anko.toast
 import vip.frendy.news.R
-import vip.frendy.news.activity.DetailActivity
-import vip.frendy.news.model.data.Constants
 
 
 /**
@@ -61,8 +60,8 @@ class FragmentAbout : Fragment(), View.OnClickListener, View.OnLongClickListener
 
     override fun onClick(view: View) {
         when(view.id) {
-            R.id.intro -> activity.startActivity<DetailActivity>(
-                    DetailActivity.URL to Constants.DEFAULT_URL)
+            R.id.intro -> Router.intentToNewsDetail(
+                    activity, Constants.DEFAULT_URL)
         }
     }
 

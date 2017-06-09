@@ -22,7 +22,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
             android:textSize="10sp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="@color/colorPrimaryDark"
             android:text="微信扫描二维码关注我的公众号"/>
     </FrameLayout>
 
@@ -34,5 +34,6 @@
         android:background="@color/cardview_light_background"
         android:padding="8dp"
         android:textSize="16sp"
+        android:textColor="@color/colorPrimaryDark"
         android:text="Goto frendy.vip"/>
 </LinearLayout>
