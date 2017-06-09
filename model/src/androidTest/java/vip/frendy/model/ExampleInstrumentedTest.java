@@ -1,4 +1,4 @@
-package me.frendy.model;
+package vip.frendy.model;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

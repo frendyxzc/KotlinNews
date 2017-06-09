@@ -1,4 +1,4 @@
-package me.frendy.model;
+package vip.frendy.model;
 
 import org.junit.Test;
 
